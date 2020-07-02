@@ -13,3 +13,7 @@ Route::get('/cats/{id}', function($id){
 Route::get('/', function(){
 	return redirect('/cats');
 });
+
+Route::get('about', function(){
+	return view('about')->with('number_of_cats', 9000);
+});
