@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/cats', function(){
-	return 'All cats.';
-});
+
 
 Route::get('/cats/{id}', function($id){
 	return sprintf('Cat #%s', $id);
@@ -16,4 +14,18 @@ Route::get('/', function(){
 
 Route::get('about', function(){
 	return view('about')->with('number_of_cats', 9000);
+});
+
+Route::get('cats', function() {
+	$cats = App\Cat::all();
+	return view('cats.index')->with('cats', $cats);
+});
+
+Route::get('cats/breeds/{name}', function($name) {
+	$breed = App\Breed::with('cats')
+		->whereName($name)
+		->first();
+	return view('cats.index')
+		->with('breed', $breed)
+		->with('cats', $breed->cats);
 });
