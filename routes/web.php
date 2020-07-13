@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/cats/{id}', function($id){
-	return sprintf('Cat #%s', $id);
-})->where('id', '[0-9]+');
+Route::get('/cats/{cat}', function(App\Cat $cat){
+	return view('cats.show') ->with('cat', $cat);
+});
 
 Route::get('/', function(){
 	return redirect('/cats');
